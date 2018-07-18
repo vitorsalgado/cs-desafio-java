@@ -55,7 +55,7 @@ class ApiDocs {
           typeResolver.resolve(ResponseEntity.class, WildcardType.class)),
           typeResolver.resolve(WildcardType.class)))
       .useDefaultResponseMessages(false)
-      .protocols(new HashSet<>(Arrays.asList("http", "https")))
+      .protocols(new HashSet<>(Arrays.asList("https")))
       .select()
       .apis(input -> !RequestHandlerSelectors.basePackage("org.springframework.boot").apply(input))
       .apis(input -> !RequestHandlerSelectors.withClassAnnotation(RestControllerAdvice.class).apply(input))
