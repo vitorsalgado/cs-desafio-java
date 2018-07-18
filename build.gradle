@@ -1,0 +1,72 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group 'br.com.concrete'
+version '1.0'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+buildscript {
+  ext {
+    springBootVersion = Versions.spring_boot
+  }
+
+  repositories {
+    mavenCentral()
+  }
+
+  dependencies {
+    classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+  }
+}
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  implementation "org.springframework.boot:spring-boot-starter-web"
+  implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+  implementation "org.springframework.boot:spring-boot-starter-security"
+  runtimeOnly "org.springframework.boot:spring-boot-devtools"
+  implementation "io.springfox:springfox-swagger2:${Versions.swagger2}"
+  implementation "io.springfox:springfox-swagger-ui:${Versions.swagger2}"
+  implementation "com.h2database:h2:${Versions.h2}"
+  implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${Versions.jackson}"
+  implementation "io.jsonwebtoken:jjwt:${Versions.jwt}"
+
+  testImplementation "org.junit.jupiter:junit-jupiter-api:${Versions.junit}"
+  testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${Versions.junit}"
+  testImplementation "org.springframework.boot:spring-boot-starter-test"
+  testImplementation "org.mockito:mockito-core:${Versions.mockito}"
+  testImplementation "org.mockito:mockito-junit-jupiter:${Versions.mockito}"
+}
+
+dependencyManagement {
+  imports {
+    mavenBom "org.springframework.cloud:spring-cloud-dependencies:${Versions.spring_cloud}"
+  }
+}
+
+test {
+  useJUnitPlatform()
+
+  testLogging {
+    events 'skipped', 'failed'
+    showStackTraces true
+    exceptionFormat 'full'
+  }
+}
+
+sourceSets {
+  test.java.srcDirs += 'src/integrationTest/java'
+  test.resources.srcDirs += 'src/integrationTest/resources'
+}
+
+wrapper {
+  gradleVersion = "4.9"
+  distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
+}
