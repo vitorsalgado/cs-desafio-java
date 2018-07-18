@@ -1,4 +1,4 @@
-package br.com.concrete.codechallenge.core.usecases.registration;
+package br.com.concrete.codechallenge.core.user;
 
 import java.util.List;
 import java.util.Map;

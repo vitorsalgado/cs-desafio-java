@@ -24,7 +24,7 @@ class JwtAuthenticationProvider implements AuthenticationProvider {
       return authentication;
     }
 
-    throw new UnauthorizedException("Sessão inválida");
+    throw new UnauthorizedException("Invalid Session");
   }
 
   @Override

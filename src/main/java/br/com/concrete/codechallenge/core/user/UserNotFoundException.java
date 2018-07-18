@@ -7,6 +7,6 @@ import br.com.concrete.codechallenge.core.ErrorCodes;
 
 public class UserNotFoundException extends DomainException {
   public UserNotFoundException() {
-    super(HttpStatus.BAD_REQUEST, "E-mail já existente", ErrorCodes.EMAIL_ALREADY_REGISTERED);
+    super(HttpStatus.BAD_REQUEST, "E-mail already exists", ErrorCodes.EMAIL_ALREADY_REGISTERED);
   }
 }

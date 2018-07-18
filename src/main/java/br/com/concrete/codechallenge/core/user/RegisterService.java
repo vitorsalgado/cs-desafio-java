@@ -1,21 +1,18 @@
-package br.com.concrete.codechallenge.core.usecases.registration;
+package br.com.concrete.codechallenge.core.user;
 
 import org.springframework.stereotype.Service;
 
-import br.com.concrete.codechallenge.core.user.User;
-import br.com.concrete.codechallenge.core.user.UserNotFoundException;
-import br.com.concrete.codechallenge.core.user.UserRepository;
 import br.com.concrete.codechallenge.libs.cipher.CipherUtils;
 import br.com.concrete.codechallenge.application.security.JwtUtils;
 
 import static br.com.concrete.codechallenge.libs.validators.Preconditions.checkNotNull;
 
 @Service
-public class RegisterInteractor {
+public class RegisterService {
   private final UserRepository userRepository;
   private final JwtUtils jwtUtils;
 
-  RegisterInteractor(UserRepository userRepository, JwtUtils jwtUtils) {
+  RegisterService(UserRepository userRepository, JwtUtils jwtUtils) {
     this.userRepository = userRepository;
     this.jwtUtils = jwtUtils;
   }

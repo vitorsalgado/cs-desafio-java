@@ -1,5 +1,7 @@
 package br.com.concrete.codechallenge;
 
+import com.google.common.base.Predicates;
+
 import com.fasterxml.classmate.TypeResolver;
 
 import org.springframework.context.annotation.Bean;
@@ -14,6 +16,7 @@ import java.util.Collections;
 import java.util.HashSet;
 
 import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.schema.WildcardType;
 import springfox.documentation.service.ApiInfo;
@@ -25,7 +28,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 import static springfox.documentation.schema.AlternateTypeRules.newRule;
 
 @Configuration
-class ApiDocs implements WebMvcConfigurer {
+class ApiDocs {
   private static final String CONTENT_TYPE_APPLICATION_JSON = "application/json";
   private final TypeResolver typeResolver;
 
@@ -51,15 +54,9 @@ class ApiDocs implements WebMvcConfigurer {
       .useDefaultResponseMessages(false)
       .protocols(new HashSet<>(Arrays.asList("http", "https")))
       .select()
-      .apis(input -> !RequestHandlerSelectors.basePackage("org.springframework.boot").apply(input))
+      .apis(Predicates.not(RequestHandlerSelectors.basePackage("org.springframework.boot")))
+      .paths(Predicates.not(PathSelectors.regex("/error")))
       .build();
-  }
-
-  @Override
-  public void addViewControllers(ViewControllerRegistry registry) {
-    registry
-      .addViewController("/")
-      .setViewName("redirect:/swagger-ui.html");
   }
 
   private static ApiInfo apiInfo() {

@@ -6,7 +6,7 @@ import br.com.concrete.codechallenge.core.DomainException;
 
 public class UnauthorizedException extends DomainException {
   public UnauthorizedException() {
-    super(HttpStatus.UNAUTHORIZED, "Usuário e/ou senha inválidos");
+    super(HttpStatus.UNAUTHORIZED, "Unauthorized");
   }
 
   public UnauthorizedException(String message) {

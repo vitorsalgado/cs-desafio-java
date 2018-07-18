@@ -53,10 +53,10 @@ dependencyManagement {
 
 test {
   useJUnitPlatform()
-
   testLogging {
     events 'skipped', 'failed'
     showStackTraces true
+    showStandardStreams = true
     exceptionFormat 'full'
   }
 }
