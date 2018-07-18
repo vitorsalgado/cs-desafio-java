@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 
 import br.com.concrete.codechallenge.core.DomainException;
+import springfox.documentation.annotations.ApiIgnore;
 
+@ApiIgnore
 @Controller
 class GlobalErrorController implements ErrorController {
   @RequestMapping("/error")

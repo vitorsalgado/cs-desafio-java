@@ -7,6 +7,8 @@ import com.fasterxml.classmate.TypeResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.async.DeferredResult;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -15,6 +17,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 
+import springfox.documentation.annotations.ApiIgnore;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -54,8 +57,9 @@ class ApiDocs {
       .useDefaultResponseMessages(false)
       .protocols(new HashSet<>(Arrays.asList("http", "https")))
       .select()
-      .apis(Predicates.not(RequestHandlerSelectors.basePackage("org.springframework.boot")))
-      .paths(Predicates.not(PathSelectors.regex("/error")))
+      .apis(input -> !RequestHandlerSelectors.basePackage("org.springframework.boot").apply(input))
+      .apis(input -> !RequestHandlerSelectors.withClassAnnotation(RestControllerAdvice.class).apply(input))
+      .apis(input -> !RequestHandlerSelectors.withClassAnnotation(ApiIgnore.class).apply(input))
       .build();
   }
 
