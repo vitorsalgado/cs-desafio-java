@@ -2,7 +2,6 @@ package br.com.concrete.codechallenge.core.user.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +20,7 @@ import br.com.concrete.codechallenge.core.user.RegisterService;
 import br.com.concrete.codechallenge.core.user.User;
 import br.com.concrete.codechallenge.core.user.UserRepository;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiKeyAuthDefinition;
 
 import static java.lang.String.format;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
@@ -49,8 +49,9 @@ class UserController {
   }
 
   @GetMapping("/{id}")
+  @ApiKeyAuthDefinition(key = "Authorization", name = "Authorization", in = ApiKeyAuthDefinition.ApiKeyLocation.HEADER)
   @ResponseStatus(code = HttpStatus.OK)
-  ResponseEntity<?> get(@AuthenticationPrincipal String token, @PathVariable String id) {
+  ResponseEntity<?> get(@PathVariable String id) {
     return userRepository
       .findById(id)
       .map(user -> ResponseEntity.ok(UserDto.mapFrom(user)))
