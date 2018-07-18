@@ -4,3 +4,8 @@ sudo: required
 
 script:
   - ./gradlew check
+
+deploy:
+  provider: heroku
+  api_key: ${HEROKU_TOKEN}
+  app: cs-desafio-java

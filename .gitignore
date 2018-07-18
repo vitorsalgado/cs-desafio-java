@@ -53,3 +53,6 @@ infer-out/
 
 # VSCODE
 .vscode/
+
+# Local
+.garbage/
