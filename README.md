@@ -7,7 +7,7 @@ Java code challenge project for Concrete.
 - Spring Boot
 - JUnit 5
 - Swagger
-- Kotlin
+- Kotlin (buildSrc only)
 
 # Cloud
 This project is available on **Heruku** on the following URL:  

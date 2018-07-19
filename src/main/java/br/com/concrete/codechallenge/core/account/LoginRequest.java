@@ -10,11 +10,11 @@ class LoginRequest {
   @NotNull
   private String password;
 
-  String getEmail() {
+  public String getEmail() {
     return email;
   }
 
-  String getPassword() {
+  public String getPassword() {
     return password;
   }
 }

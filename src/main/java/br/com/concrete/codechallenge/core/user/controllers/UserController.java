@@ -20,7 +20,6 @@ import br.com.concrete.codechallenge.core.user.RegisterService;
 import br.com.concrete.codechallenge.core.user.User;
 import br.com.concrete.codechallenge.core.user.UserRepository;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiKeyAuthDefinition;
 
 import static java.lang.String.format;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
@@ -49,7 +48,6 @@ class UserController {
   }
 
   @GetMapping("/{id}")
-  @ApiKeyAuthDefinition(key = "Authorization", name = "Authorization", in = ApiKeyAuthDefinition.ApiKeyLocation.HEADER)
   @ResponseStatus(code = HttpStatus.OK)
   ResponseEntity<?> get(@PathVariable String id) {
     return userRepository

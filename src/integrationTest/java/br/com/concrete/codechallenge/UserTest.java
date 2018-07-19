@@ -35,7 +35,7 @@ class UserTest {
 
   @Test
   @DisplayName("POST /users should register a new user and return 201 (Created)")
-  void userTest() throws Exception {
+  void registerTest() throws Exception {
     mockMvc
       .perform(
         post("/users")
@@ -53,6 +53,18 @@ class UserTest {
           .accept(MediaType.APPLICATION_JSON)
           .contentType(MediaType.APPLICATION_JSON))
       .andExpect(status().isCreated())
+      .andExpect(content().json("{'name':'Teste da Silva'}"));
+
+    mockMvc
+      .perform(
+        post("/account/login")
+          .content(new JSONObject("{\n" +
+            "  \"email\": \"teste@concrete.com.br\",\n" +
+            "  \"password\": \"SUPER_PASSWORD\" \n" +
+            "}").toString())
+          .accept(MediaType.APPLICATION_JSON)
+          .contentType(MediaType.APPLICATION_JSON))
+      .andExpect(status().isOk())
       .andExpect(content().json("{'name':'Teste da Silva'}"));
   }
 }
